@@ -1,0 +1,28 @@
+
+
+Given an integer x, return true if x is a palindrome, and false otherwise
+
+C++
+
+
+#include <bits/stdc++.h>
+#include <string>
+using namespace std;
+class Solution
+{
+public:
+    bool isPalindrome(int x)
+    {
+        string str = to_string(x);
+        string str1 = to_string(x);
+        reverse(str1.begin(), str1.end());
+        if (str == str1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+};
