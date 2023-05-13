@@ -3,6 +3,7 @@ Given an integer num, repeatedly add all its digits until the result has only on
 
 C++
 
+1st Approach
 class Solution {
 public:
     int addDigits(int num) {
@@ -16,5 +17,19 @@ public:
             return res;
         }
         return addDigits(res);
+    }
+};
+
+2nd Approach
+class Solution {
+public:
+    int addDigits(int num) {
+        if ( num == 0 ){
+            return 0;
+        }
+        if(num% 9 == 0){
+            return 9;
+        }
+        return num%9;
     }
 };
