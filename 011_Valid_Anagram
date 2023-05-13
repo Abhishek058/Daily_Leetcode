@@ -1,0 +1,28 @@
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+C++
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        unordered_map<char, int> charCount1;
+        unordered_map<char, int> charCount2;
+
+        for (char c : s) {
+            charCount1[c]++;
+        }
+        for (char c : t) {
+            charCount2[c]++;
+        }
+
+        if(charCount1 == charCount2){
+            return true;
+        }
+        return false;
+    }
+};
