@@ -1,0 +1,32 @@
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+
+c++
+
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+    vector<int> myVector;
+    map<int, int> frequencyMap;
+
+    for (const auto& e : nums) {
+        frequencyMap[e]++;
+    }
+
+    vector<vector<int>> freq(nums.size() + 1, vector<int>());
+    for (const auto& pair : frequencyMap) {
+        freq[pair.second].push_back(pair.first);
+    }
+
+    vector<int> topKFrequentElements;
+    for (int i = freq.size() - 1; i >= 0 && topKFrequentElements.size() < k; --i) {
+        for (int j = 0; j < freq[i].size() && topKFrequentElements.size() < k; ++j) {
+            topKFrequentElements.push_back(freq[i][j]);
+        }
+    }
+
+    return topKFrequentElements;
+}
+
+};
