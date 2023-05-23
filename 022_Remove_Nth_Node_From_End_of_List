@@ -1,0 +1,37 @@
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+C++
+
+class Solution {
+public:
+    int lengthLL(ListNode* &head){
+        ListNode* temp = head;
+        int leng = 0;
+        if(head == NULL){
+            return 0;
+        }
+        while(temp != NULL){
+            leng++;
+            temp = temp->next;
+        }
+        return leng;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head == NULL || head->next==NULL){
+            return NULL;
+        }
+        int len = lengthLL(head);
+        if(n == len){
+            return head->next;
+        }
+        ListNode* curr = head;
+        int cnt = 1;
+        
+        while(cnt<len-n){
+            curr=curr->next;
+            cnt++;
+        }
+        curr->next=curr->next->next;
+        return head;
+    }
+};
