@@ -1,0 +1,36 @@
+You are given the head of a linked list. Delete the middle node, and return the head of the modified linked list.
+The middle node of a linked list of size n is the ⌊n / 2⌋th node from the start using 0-based indexing,
+where ⌊x⌋ denotes the largest integer less than or equal to x.
+
+C++
+
+class Solution {
+public:
+    int lenll(ListNode* head){
+        int len = 0;
+        ListNode* temp = head;
+        if(head == NULL){
+            return len;
+        }
+        while(temp){
+            len++;
+            temp = temp->next;
+        }
+        return len;
+    }
+    ListNode* deleteMiddle(ListNode* head) {
+        if(head == NULL || head->next==NULL){
+            return NULL;
+        }
+        int len = lenll(head);
+
+        int cnt = 0;
+        ListNode* curr = head;
+        while(cnt<len/2-1){
+            curr = curr->next;
+            cnt++;
+        }
+        curr->next = curr->next->next;
+        return head;
+    }
+};
