@@ -1,0 +1,21 @@
+Given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+C++
+
+class Solution {
+public:
+vector<int> v;
+    void dfs(TreeNode* root){
+        if(root == NULL){
+            return;
+        }
+
+        v.push_back(root->val);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        dfs(root);
+        return v;
+    }
+};
