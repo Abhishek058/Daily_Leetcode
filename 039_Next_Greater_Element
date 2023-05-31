@@ -1,0 +1,35 @@
+The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
+
+C++
+
+class Solution {
+public:
+    int indexOf(vector<int> arr, int n){
+        for(int i=0;i<arr.size();i++){
+            if(arr[i] == n){
+                return i;
+            }
+        }
+        return -1;
+    }
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans;
+        for(int i=0;i<nums1.size();i++){
+            int idx = indexOf(nums2, nums1[i]);
+            int max = nums1[i];
+            for(int j=idx;j<nums2.size();j++){
+                if(nums2[j] > max){
+                    max = nums2[j];
+                    break;
+                }
+            }
+            if(max == nums1[i]){
+                ans.push_back(-1);
+            }
+            else{
+                ans.push_back(max);
+            }
+        }
+        return ans;
+    }
+};
