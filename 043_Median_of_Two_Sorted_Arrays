@@ -1,0 +1,25 @@
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+The overall run time complexity should be O(log (m+n)).
+
+C++
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+
+        for(auto i:nums2){
+            nums1.push_back(i);
+        }
+
+        sort(nums1.begin(), nums1.end());
+
+        int n = nums1.size();
+        if(n % 2){
+            return nums1[n/2];
+        }
+        else{
+            return (nums1[n/2 - 1]  + nums1[n/2] ) / 2.0;
+        }
+    }
+};
