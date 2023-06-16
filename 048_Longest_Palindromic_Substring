@@ -1,0 +1,92 @@
+Given a string s, return the longest palindromic substring in s.
+
+C++
+
+class Solution {
+public:
+int max_size=1;
+int max_start=0;
+    string longestPalindrome(string s) {
+        for(int i=0;i<s.size();i++){
+            int r=i;
+            int l=i;
+            checkPalindrome(s,r,l);
+            l=i;
+            r=i+1;
+            checkPalindrome(s,r,l);
+        }
+        return s.substr(max_start,max_size);
+    }
+    void checkPalindrome(string s, int r, int l){
+        while(r<s.size() && l>-1 && s[r]==s[l]){
+            l--;
+            r++;
+        }
+        if((r-l-1)>max_size){
+            max_size=r-l-1;
+            max_start=l+1;
+        }
+    }
+};
+
+class Solution {
+public:
+    string ans = "";
+    void expand(string &s , int left ,int right)
+    {
+        while(left >= 0 &&  right < s.size())
+        {
+            if(s[left] != s[right])
+                break;
+            left--,right++;
+        }
+        if(ans.size() < right - left )
+            ans = s.substr(left + 1 , right - left - 1);
+    }
+    string longestPalindrome(string s) {
+        for(int i = 0 ; i < s.size() ; i++)
+        {
+            expand(s , i , i);
+            expand(s , i , i+1);
+        }
+        return ans;
+    }
+};
+
+class Solution
+{
+public:
+    bool isPalindrome(string str)
+    {
+        string reversed = str;
+        reverse(reversed.begin(), reversed.end());
+        return str == reversed;
+    }
+
+    string longestPalindrome(string s)
+    {
+        int n = s.length();
+        if (n == 1)
+        {
+            return s;
+        }
+
+        string longest = "";
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j <= n; j++)
+            {
+                string substr = s.substr(i, j - i);
+                if (isPalindrome(substr) && substr.length() > longest.length())
+                {
+                    longest = substr;
+                }
+            }
+        }
+
+        return longest;
+    }
+};
+
+3rd correct but TLE
