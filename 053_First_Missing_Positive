@@ -1,0 +1,32 @@
+Given an unsorted integer array nums, return the smallest missing positive integer.
+
+You must implement an algorithm that runs in O(n) time and uses constant extra space.
+
+C++
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        int n = nums.size();
+
+        auto it = find(nums.begin(), nums.end(), 1);
+        if (it == nums.end()) {
+            return 1;
+        }
+
+        // Create a set to keep track of positive numbers
+        unordered_set<int> positiveSet;
+        for (int num : nums) {
+            if (num > 0) {
+                positiveSet.insert(num);
+            }
+        }
+
+        int missingNum = 1;
+        while (positiveSet.count(missingNum)) {
+            missingNum++;
+        }
+
+        return missingNum;
+    }
+};
