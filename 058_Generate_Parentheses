@@ -1,0 +1,29 @@
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+C++
+
+
+class Solution {
+public:
+    vector<string> result;
+    void solve(int n, string str, int opCnt, int clCnt){
+        if(str.length() == 2*n){
+            result.push_back(str);
+            return;
+        }
+
+        if(opCnt < n){
+            solve(n, str+'(', opCnt+1, clCnt);
+        }
+        if(clCnt < opCnt){
+            solve(n, str+')', opCnt, clCnt+1);
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        solve(n, "", 0,0);
+        return result;
+    }
+};
