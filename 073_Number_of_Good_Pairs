@@ -1,0 +1,33 @@
+Given an array of integers nums, return the number of good pairs.
+
+A pair (i, j) is called good if nums[i] == nums[j] and i < j.
+
+C++
+
+class Solution {
+public:
+    int numIdenticalPairs(vector<int>& nums) {
+        int cnt = 0;
+        for(int i=0; i<nums.size(); i++){
+            for(int j = i+1; j<nums.size(); j++){
+                if(nums[i] == nums[j] && i < j){
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+};
+
+ JAVA
+
+class Solution {
+        public int numIdenticalPairs(int[] A) {
+        int res = 0, count[] = new int[101];
+        for (int a: A) {
+            res += count[a];
+            count[a]++;
+        }
+        return res;
+    }
+}
