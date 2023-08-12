@@ -1,0 +1,28 @@
+The array-form of an integer num is an array representing its digits in left to right order.
+
+For example, for num = 1321, the array form is [1,3,2,1].
+Given num, the array-form of an integer, and an integer k, return the array-form of the integer num + k.
+
+class Solution {
+public:
+    vector<int> addToArrayForm(vector<int>& num, int k) {
+        int x = num.size() - 1;
+        int carry = 0;
+        
+        while (x >= 0 || k > 0 || carry > 0) {
+            if (x >= 0) {
+                int sum = num[x] + k % 10 + carry;
+                num[x] = sum % 10;
+                carry = sum / 10;
+                x--;
+            } else {
+                int sum = k % 10 + carry;
+                num.insert(num.begin(), sum % 10);
+                carry = sum / 10;
+            }
+            k /= 10;
+        }
+
+        return num;
+    }
+};
