@@ -1,0 +1,48 @@
+Given an array nums of integers, return how many of them contain an even number of digits.
+
+class Solution {
+public:
+    int findNumbers(vector<int>& nums) {
+        int cnt = 0;
+        for(int i=0;i<nums.size();i++){
+            string str = to_string(nums[i]);
+            if(str.length() % 2 == 0){
+                cnt++;
+            }
+        }
+
+        return cnt;
+    }
+};
+
+
+
+class Solution {
+public:
+    bool isEven(int n)
+    {
+        int count=0;
+        while(n!=0)
+        {
+            n=n/10;
+            count++;
+        }
+        if(count%2==0)
+        {
+            return true;
+        }
+        return false;
+    }
+    int findNumbers(vector<int>& nums) {
+        int n=nums.size();
+        int count=0;
+        for(int i=0;i<n;i++)
+        {
+            if(isEven(nums[i]))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+};
