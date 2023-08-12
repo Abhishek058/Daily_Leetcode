@@ -1,0 +1,23 @@
+Given two n x n binary matrices mat and target, return true if it is possible to make mat equal to target by rotating mat in 90-degree increments, or false otherwise.
+
+0deg rotation : i, j will point to i, j
+90deg rotation : i, j will point to j, n - i - 1
+180deg rotation : i, j will point to n - i - 1, n - j - 1
+270deg rotation : i, j will point to n - j - 1, i
+
+class Solution {
+public:
+    bool findRotation(vector<vector<int>>& mat, vector<vector<int>>& target) {
+        int n = mat.size();
+        int a = true, b = true, c = true, d = true;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] != target[i][j]) a = false;
+                if (mat[i][j] != target[n - j - 1][i]) b = false;
+                if (mat[i][j] != target[n - i - 1][n - j - 1]) c = false;
+                if (mat[i][j] != target[j][n - i - 1]) d = false;
+            }
+        }
+        return a || b || c || d;
+    }
+};
