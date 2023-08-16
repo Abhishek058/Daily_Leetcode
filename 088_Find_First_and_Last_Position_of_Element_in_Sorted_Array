@@ -1,0 +1,78 @@
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+
+If target is not found in the array, return [-1, -1].
+
+You must write an algorithm with O(log n) runtime complexity.
+
+Brute Force:
+
+  class Solution {
+    public int[] searchRange(int[] nums, int target) {
+
+        int[] ans = new int[2];
+        ans[0] = -1;
+        ans[1] = -1;
+        for (int i = 0; i <= nums.length - 1; i++) {
+            if (nums[i] == target) {
+                ans[0] = i;
+                break;
+            }
+        }
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (nums[i] == target) {
+                ans[1] = i;
+                break;
+            }
+        }
+
+        return ans;
+    }
+}
+
+C++
+finding first and last seprately
+
+class Solution {
+public:
+    int findF(vector<int>& nums, int target){
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while(left <= right){
+            int m = left + (right - left)/2;
+            if(nums[m] < target){
+                left = m + 1;
+            }
+            else{
+                right = m - 1;
+            }
+        }
+        return left;
+    }
+    int findL(vector<int>& nums, int target){
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while(left <= right){
+            int m = left + (right - left)/2;
+            if(nums[m] <= target){
+                left = m + 1;
+            }
+            else{
+                right = m - 1;
+            }
+        }
+        return right;
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int first = findF(nums, target);
+        int last = findL(nums, target);
+
+        if(first <= last){
+            return {first, last};
+        }
+        else{
+            return {-1, -1};
+        }
+    }
+};
