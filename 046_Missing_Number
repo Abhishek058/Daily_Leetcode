@@ -33,3 +33,21 @@ public:
 
     }
 };
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        int xorTotal = 0;
+        
+        // XOR all numbers from 0 to n
+        for (int i = 0; i <= nums.length; i++) {
+            xorTotal ^= i;
+        }
+        
+        // XOR all numbers in the array
+        for (int num : nums) {
+            xorTotal ^= num;
+        }
+        
+        return xorTotal;
+    }
+}
