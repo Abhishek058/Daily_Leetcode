@@ -1,0 +1,30 @@
+You are given an array of unique integers salary where salary[i] is the salary of the ith employee.
+
+Return the average salary of employees excluding the minimum and maximum salary. Answers within 10-5 of the actual answer will be accepted.
+
+class Solution {
+public:
+    double average(vector<int>& salary) {
+        int maxSal = INT_MIN;
+        int minSal = INT_MAX;
+        int n = salary.size();
+
+        for(int i=0; i<n; i++){
+            if(salary[i] > maxSal){
+                maxSal = salary[i];
+            }
+            if(salary[i] < minSal){
+                minSal = salary[i];
+            }
+        }
+
+        double sum = 0;
+        for(int i=0; i<n; i++){
+            if(salary[i] != maxSal && salary[i] != minSal){
+                sum += salary[i];
+            }
+        }
+
+        return sum / (n-2);
+    }
+};
