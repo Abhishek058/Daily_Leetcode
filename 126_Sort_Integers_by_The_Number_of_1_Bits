@@ -1,0 +1,97 @@
+Input: arr = [0,1,2,3,4,5,6,7,8]
+Output: [0,1,2,4,8,3,5,6,7]
+Explantion: [0] is the only integer with 0 bits.
+[1,2,4,8] all have 1 bit.
+[3,5,6] have 2 bits.
+[7] has 3 bits.
+The sorted array by bits is [0,1,2,4,8,3,5,6,7]
+
+1. Brute Force:
+
+class Solution {
+    public int cntBit(int n){
+        int cnt = 0;
+        while(n != 0){
+            cnt += n&1;
+            n >>= 1;
+        }
+        return cnt;
+    }
+    public int[] sortByBits(int[] arr) {
+        for(int i=0; i<arr.length; i++){
+            for(int j=i+1; j<arr.length; j++){
+                int countI = cntBit(arr[i]);
+                int countJ = cntBit(arr[j]);
+                if(countI > countJ || (countI == countJ && arr[i] > arr[j])){
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        return arr;
+    }
+}
+
+2. optimize to 3ms:
+
+class Solution {
+public:
+    int cntBit(int n){
+        int cnt = 0;
+        while(n != 0){
+            cnt += n&1;
+            n >>= 1;
+        }
+        return cnt;
+    }
+
+    vector<int> sortByBits(vector<int>& arr) {
+        vector<vector<int>> bitSort(32);
+        vector<int> ans;
+
+        for(int num : arr){
+            bitSort[cntBit(num)].push_back(num);
+        }
+
+        for(vector<int>& i : bitSort){
+            if (!i.empty()) {
+                sort(i.begin(), i.end());
+                ans.insert(ans.end(), i.begin(), i.end());
+            }
+        }
+
+        return ans;
+    }
+};
+
+2. space optimized:
+
+class Solution {
+public:
+    int cntBit(int n) {
+        int cnt = 0;
+        while (n != 0) {
+            cnt += n & 1;
+            n >>= 1;
+        }
+        return cnt;
+    }
+
+    vector<int> sortByBits(vector<int>& arr) {
+        auto customSort = [&](int a, int b) {
+            int countA = cntBit(a);
+            int countB = cntBit(b);
+            
+            if (countA == countB) {
+                return a < b;
+            }
+            return countA < countB;
+        };
+
+        sort(arr.begin(), arr.end(), customSort);
+
+        return arr;
+    }
+};
