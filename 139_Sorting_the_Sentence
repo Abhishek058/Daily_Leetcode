@@ -1,0 +1,22 @@
+Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.
+
+Example 1:
+
+Input: s = "is2 sentence4 This1 a3"
+Output: "This is a sentence"
+Explanation: Sort the words in s to their original positions "This1 is2 a3 sentence4", then remove the numbers.
+
+class Solution {
+    public String sortSentence(String s) {
+        String[] words = s.split(" ");
+        String[] resSen = new String[words.length];
+        for (int i = 0; i < words.length; i++) {
+            int idx = words[i].charAt(words[i].length()-1) - 49;
+            words[i] = words[i].substring(0, words[i].length()-1);
+            resSen[idx] = words[i];
+        }
+
+        String res = String.join(" ", resSen);
+        return res;
+    }
+}
