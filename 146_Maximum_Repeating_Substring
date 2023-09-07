@@ -1,0 +1,17 @@
+Input: sequence = "ababc", word = "ab"
+Output: 2
+Explanation: "abab" is a substring in "ababc".
+
+class Solution {
+public:
+    int maxRepeating(string seq, string word) {
+        int cnt = 0;
+        string s = word;
+
+        while(seq.find(s) != -1){
+            cnt++;
+            s += word;
+        }
+        return cnt;
+    }
+};
