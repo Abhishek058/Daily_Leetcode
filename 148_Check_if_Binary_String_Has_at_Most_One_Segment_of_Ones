@@ -1,0 +1,35 @@
+Given a binary string s ​​​​​without leading zeros, return true​​​ if s contains at most one contiguous segment of ones. Otherwise, return false.
+
+Example 1:
+
+Input: s = "1001"
+Output: false
+Explanation: The ones do not form a contiguous segment.
+
+Approach:
+We use a boolean variable foundZero to keep track of whether a '0' has been encountered.
+
+We iterate through the characters in the string s.
+
+When we encounter a '0', we set foundZero to true.
+
+If we encounter a '1' after foundZero has been set to true, we immediately return false because it indicates the presence of a '0' after a segment of '1's.
+
+If we reach the end of the loop without finding any '0' after the first '1's segment, we return true, indicating that there's only one segment of consecutive '1's in the string.
+
+class Solution {
+public:
+    bool checkOnesSegment(string s) {
+        bool foundZero = false;
+
+        for (char c : s) {
+            if (c == '0') {
+                foundZero = true;
+            } else if (foundZero) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
