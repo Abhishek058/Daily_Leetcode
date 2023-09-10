@@ -1,0 +1,47 @@
+Input: s = "HOW ARE YOU"
+Output: ["HAY","ORO","WEU"]
+Explanation: Each word is printed vertically. 
+ "HAY"
+ "ORO"
+ "WEU"
+Example 2:
+
+Input: s = "TO BE OR NOT TO BE"
+Output: ["TBONTB","OEROOE","   T"]
+Explanation: Trailing spaces is not allowed. 
+"TBONTB"
+"OEROOE"
+"   T"
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Solution {
+    public List<String> printVertically(String s) {
+        List<String> strArr = new ArrayList<>();
+        String[] parts = s.split(" ");
+        
+        int maxLen = 0;
+        for (String sr : parts) {
+            maxLen = Math.max(maxLen, sr.length());
+        }
+        
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].length() < maxLen) {
+                for (int j = parts[i].length(); j < maxLen; j++) {
+                    parts[i] += " ";
+                }
+            }
+        }
+        
+        for (int i = 0; i < maxLen; i++) {
+            StringBuilder x = new StringBuilder();
+            for (int j = 0; j < parts.length; j++) {
+                x.append(parts[j].charAt(i));
+            }
+            strArr.add(x.toString().replaceAll("\\s+$", ""));
+        }
+        
+        return strArr;
+    }
+}
