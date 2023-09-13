@@ -1,0 +1,64 @@
+Example 1:
+
+Input: sentence1 = "My name is Haley", sentence2 = "My Haley"
+Output: true
+Explanation: sentence2 can be turned to sentence1 by inserting "name is" between "My" and "Haley".
+Example 2:
+
+Input: sentence1 = "of", sentence2 = "A lot of words"
+Output: false
+Explanation: No single sentence can be inserted inside one of the sentences to make it equal to the other.
+
+sentence1 =
+"qbaVXO Msgr aEWD v ekcb"
+sentence2 =
+"Msgr aEWD ekcb"
+false
+
+class Solution {
+public:
+    bool areSentencesSimilar(string s1, string s2) {
+        vector<string> a, b;
+
+        string str = "";
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1[i] != ' ') {
+                str += s1[i];
+            } else {
+                a.push_back(str);
+                str = "";
+            }
+        }
+        a.push_back(str);  // Push the last word.
+
+        str = "";
+        for (int i = 0; i < s2.length(); i++) {
+            if (s2[i] != ' ') {
+                str += s2[i];
+            } else {
+                b.push_back(str);
+                str = "";
+            }
+        }
+        b.push_back(str);
+
+        while (!a.empty() && !b.empty() && (a.front() == b.front())) {
+            a.erase(a.begin());
+            b.erase(b.begin());
+        }
+
+        while (!a.empty() && !b.empty() && (a.back() == b.back())) {
+            a.pop_back();
+            b.pop_back();
+        }
+
+        if (a.empty() || b.empty()) {
+            return true;
+        }
+
+        if (a[0] == b[0] || a.back() == b.back()) {
+            return true;
+        }
+        return false;
+    }
+};
