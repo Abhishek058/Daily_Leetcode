@@ -1,0 +1,41 @@
+Given a binary string s, you can split s into 3 non-empty strings s1, s2, and s3 where s1 + s2 + s3 = s.
+
+Return the number of ways s can be split such that the number of ones is the same in s1, s2, and s3. Since the answer may be too large, return it modulo 109 + 7.
+
+ Example 1:
+
+Input: s = "10101"
+Output: 4
+Explanation: There are four ways to split s in 3 parts where each part contain the same number of letters '1'.
+"1|010|1"
+"1|01|01"
+"10|10|1"
+"10|1|01"
+
+class Solution {
+public:
+    int numWays(string s) {
+        int n = s.length();
+        vector<int> v;
+        for(int i=0; i<n; i++){
+            if(s[i] == '1'){
+                v.push_back(i);
+            }
+        }
+
+        int total = v.size();
+
+        if(total == 0){
+            return (int)(((long long)(n-1)*(n-2)/2)%1000000007);
+        }
+
+        if(total%3 != 0){
+            return 0;
+        }
+
+        int target = total/3;
+        long long ans = (long long)(v[target] - v[target-1])*(v[2*target] - v[2*target-1]) % 1000000007;
+
+        return (int)ans;
+    }
+};
