@@ -1,0 +1,35 @@
+class Solution {
+    public boolean isNumber(String str) {
+        boolean s = false;
+        boolean n = false;
+        boolean d = false;
+        boolean e = false;
+
+        for(int i=0; i<str.length(); i++){
+            char c = str.charAt(i);
+            if(c == '-' || c == '+'){
+                if(s || n) return false;
+                s = true;
+            }
+            else if(c == '.'){
+                if(e || d) return false;
+                d = true;
+                s = true;
+            }
+            else if(c >= '0' && c <= '9'){
+                n = true;
+            }
+            else if((c == 'e') || (c=='E')){
+                if(e || !n) return false;
+                e = true;
+                s = false;
+                n = false;
+            }
+            else{
+                return false;
+            }
+        }
+
+        return n;
+    }
+}
