@@ -27,3 +27,36 @@ class Solution {
         return head;
     }
 }
+
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == NULL || k == 0) {
+            return head;
+        }
+
+        ListNode *newList = head;
+        int len = 1;
+        while (newList->next) {
+            newList = newList->next;
+            len++;
+        }
+
+        // Adjust k to be less than len
+        k = k % len;
+
+        // Handle the case where k is 0 after adjustment
+        if (k == 0) {
+            return head;
+        }
+
+        newList->next = head;
+        for (int i = 0; i < len - k; i++) {
+            newList = newList->next;
+        }
+
+        head = newList->next;
+        newList->next = NULL;
+        return head;
+    }
+};
