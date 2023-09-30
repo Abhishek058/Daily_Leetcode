@@ -21,3 +21,27 @@ public:
         return head;
     }
 };
+
+
+Delete all duplicate self also:
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+
+        if(head->val != head->next->val){
+            head->next = deleteDuplicates(head->next);
+            return head;
+        }
+        else{
+            while(head->next && head->val == head->next->val){
+                head = head->next;
+            }
+
+            return deleteDuplicates(head->next);
+        }
+    }
+};
