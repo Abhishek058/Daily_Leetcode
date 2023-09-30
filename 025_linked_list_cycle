@@ -22,3 +22,31 @@ public:
         return false;
     }
 };
+
+Cycle II (find by node)
+
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if(head == null || head.next == null)
+            return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode res = head;
+
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast){
+                while(slow != res){
+                    slow = slow.next;
+                    res = res.next;
+                }
+                return res;
+            }
+        }
+
+        return null;
+    }
+}
