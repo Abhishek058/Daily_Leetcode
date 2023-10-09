@@ -1,0 +1,29 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* curr = dummy;
+        int sum = 0;
+        map<int, ListNode*> mp;
+
+        while (curr) {
+            sum += curr->val;
+            mp[sum] = curr;
+            curr = curr->next;
+        }
+
+        curr = dummy;
+        sum = 0;
+
+        while (curr) {
+            sum += curr->val;
+            curr->next = mp[sum]->next;
+            curr = curr->next;
+        }
+
+        return dummy->next;
+    }
+};
