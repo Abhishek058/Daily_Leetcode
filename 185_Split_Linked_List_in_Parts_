@@ -1,0 +1,40 @@
+Input: head = [1,2,3], k = 5
+Output: [[1],[2],[3],[],[]]
+Explanation:
+The first element output[0] has output[0].val = 1, output[0].next = null.
+The last element output[4] is null, but its string representation as a ListNode is [].
+
+class Solution {
+public:
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+        ListNode* curr = head;
+        int length = 0;
+
+        while (curr) {
+            length++;
+            curr = curr->next;
+        }
+        vector<ListNode*> res;
+        int partSize = length / k;
+        int largerParts = length % k;
+        curr = head;    
+
+        for(int i=0; i<k; i++){
+            ListNode* partHead = curr;
+            int partLength = partSize + (i < largerParts ? 1 : 0);
+            for (int j = 0; j < partLength - 1 && curr; j++) {
+                curr = curr->next;
+            }
+
+            if (curr) {
+                ListNode* nextNode = curr->next;
+                curr->next = nullptr;
+                curr = nextNode;
+            }
+
+            res.push_back(partHead);
+        }
+
+        return res;
+    }
+};
