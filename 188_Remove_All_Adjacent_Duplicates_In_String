@@ -1,0 +1,41 @@
+
+
+class Solution {
+    public String removeDuplicates(String s) {
+        Stack<Character> st = new Stack<>();
+        for(int i=0; i<s.length(); i++){
+            if(!st.isEmpty() && st.peek() == s.charAt(i)){
+                st.pop();
+            }
+            else{
+                st.push(s.charAt(i));
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while(!st.isEmpty()){
+            sb.append(st.pop());
+        }
+
+        return sb.reverse().toString();
+    }
+}
+
+class Solution {
+public:
+    string removeDuplicates(string s){
+        for (int i = 0; i < s.length();){
+            
+            if (s.length() == pow(10, 5))
+                return "";
+            if (s[i] == s[i + 1]){
+                s.erase(s.begin() + i);
+                s.erase(s.begin() + i);
+                i = 0;
+            }
+            else{
+                i++;
+            }
+        }
+        return s;
+    }
+};
