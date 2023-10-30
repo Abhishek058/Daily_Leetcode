@@ -1,0 +1,40 @@
+Given a square chessboard, the initial position of Knight and position of a target.
+Find out the minimum steps a Knight will take to reach the target position.
+
+
+
+class Solution
+{
+    //Function to find out minimum steps Knight needs to reach target position.
+    public int minStepToReachTarget(int k[], int t[], int N)
+    {
+        // Code here
+        boolean vis[][] = new boolean[N][N];
+        Queue<int[]> q = new LinkedList<>();
+        int[] dx = {1, 1, -1, -1, 2, 2, -2, -2};
+        int[] dy = {-2, 2, -2, 2, -1, 1, -1, 1};
+        q.offer(new int[]{k[0]-1, k[1]-1, 0});
+        
+        while(!q.isEmpty()){
+            int a[] = q.poll();
+            int x = a[0];
+            int y = a[1];
+            int cnt = a[2];
+            
+            if(x == t[0]-1 && y == t[1]-1){
+                return cnt;
+            }
+            
+            for(int i=0; i<8; i++){
+                int nx = x+dx[i];
+                int ny = y+dy[i];
+                
+                if(nx >= 0 && nx < N && ny >= 0 && ny < N && !vis[nx][ny]){
+                    vis[nx][ny] = true;
+                    q.offer(new int[]{nx, ny, cnt+1});
+                }
+            }
+        }
+        return -1;
+    }
+}
