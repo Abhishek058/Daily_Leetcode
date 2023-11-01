@@ -36,3 +36,22 @@ public:
         return v;
     }
 };
+
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> l = new ArrayList<>();
+        Stack<TreeNode> st = new Stack<>();
+
+        while(root != null || !st.isEmpty()){
+            while(root != null){
+                st.push(root);
+                root = root.left;
+            }
+            root = st.pop();
+            l.add(root.val);
+            root = root.right;
+        }
+        return l;
+    }
+}
