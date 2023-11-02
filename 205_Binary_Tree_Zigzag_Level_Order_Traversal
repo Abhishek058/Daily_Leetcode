@@ -1,0 +1,29 @@
+Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+
+public class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        zigzagLevelOrderHelper(root, result, 0);
+        return result;
+    }
+
+    private void zigzagLevelOrderHelper(TreeNode node, List<List<Integer>> result, int level) {
+        if (node == null) {
+            return;
+        }
+
+        if (result.size() <= level) {
+            result.add(new ArrayList<>());
+        }
+
+        if (level % 2 == 0) {
+            result.get(level).add(node.val); // For even levels, add to the end
+        } else {
+            result.get(level).add(0, node.val); // For odd levels, insert at the beginning
+        }
+
+        zigzagLevelOrderHelper(node.left, result, level + 1);
+        zigzagLevelOrderHelper(node.right, result, level + 1);
+    }
+}
