@@ -1,0 +1,19 @@
+Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+class Solution {
+    List<Integer> res = new ArrayList<>();
+    public void solve(TreeNode root, int level){
+        if(root == null){
+            return;
+        }
+        if(level == res.size()){
+            res.add(root.val);
+        }
+        solve(root.right, level+1);
+        solve(root.left, level+1);
+    }
+    public List<Integer> rightSideView(TreeNode root) {
+        solve(root, 0);
+        return res;
+    }
+}
