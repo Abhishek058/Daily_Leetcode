@@ -1,0 +1,58 @@
+Given the root of a binary tree, the value of a target node target, and an integer k,
+return an array of the values of all nodes that have a distance k from the target node.
+You can return the answer in any order.
+
+class Solution {
+    List<Integer> ans = new ArrayList<>();
+    Map<TreeNode, TreeNode> parent = new HashMap<>();
+    Set<TreeNode> visit = new HashSet<>();
+
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+        if(root == null){
+            return new ArrayList<>();
+        }
+
+        findParent(root);
+        dfs(target, K);
+
+        return ans;
+    }
+
+    public void findParent(TreeNode root){
+        if(root == null){
+            return ;
+        }
+
+        if(root.left != null){
+            parent.put(root.left, root);
+            findParent(root.left);
+        }
+        if(root.right != null){
+            parent.put(root.right, root);
+            findParent(root.right);
+        }
+    }
+
+    void dfs(TreeNode root, int K){
+        if(visit.contains(root)){
+            return ;
+        }
+
+        visit.add(root);
+        if(K == 0){
+            ans.add(root.val);
+            return;
+        }
+        if(root.left != null){
+            dfs(root.left, K-1);
+        }
+        if(root.right != null){
+            dfs(root.right, K-1);
+        }
+
+        TreeNode p = parent.get(root);
+        if(p != null){
+            dfs(p, K-1);
+        }
+    }
+}
