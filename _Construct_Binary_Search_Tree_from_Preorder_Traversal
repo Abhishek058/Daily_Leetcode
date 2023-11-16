@@ -1,0 +1,19 @@
+Given an array of integers preorder, which represents the preorder traversal of a BST (i.e., binary search tree),
+construct the tree and return its root.
+
+class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return solve(preorder, Integer.MAX_VALUE, new int[]{0});
+    }
+
+    private TreeNode solve(int[] preorder, int maxVal, int[] arr){
+        if(arr[0] == preorder.length || preorder[arr[0]] > maxVal) return null;
+
+        TreeNode root = new TreeNode(preorder[arr[0]++]);
+        
+        root.left = solve(preorder, root.val, arr);
+        root.right = solve(preorder, maxVal, arr);
+
+        return root;
+    }
+}
