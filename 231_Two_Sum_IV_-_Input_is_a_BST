@@ -1,0 +1,41 @@
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        Stack<TreeNode> leftSt = new Stack<>();
+        Stack<TreeNode> rightSt = new Stack<>();
+
+        TreeNode currleft = root;
+        TreeNode currright = root;
+
+        while(currleft != null){
+            leftSt.push(currleft);
+            currleft = currleft.left;
+        }
+
+        while(currright != null){
+            rightSt.push(currright);
+            currright = currright.right;
+        }
+
+        while(!leftSt.isEmpty() && !rightSt.isEmpty() && leftSt.peek() != rightSt.peek()){
+            int sum = leftSt.peek().val + rightSt.peek().val;
+            if(sum == k){
+                return true;
+            }
+            else if(sum < k){
+                currleft = leftSt.pop().right;
+                while(currleft != null){
+                    leftSt.push(currleft);
+                    currleft = currleft.left;
+                }
+            }
+            else{
+                currright = rightSt.pop().left;
+                while(currright != null){
+                    rightSt.push(currright);
+                    currright = currright.right;
+                }
+            }
+        }
+        return false;
+    }
+}
