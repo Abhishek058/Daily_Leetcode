@@ -39,3 +39,34 @@ class Solution {
         return false;
     }
 }
+
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        return run(root, root, k);
+    }
+    bool run(TreeNode* root, TreeNode* curr, int k){
+        if(curr == NULL){
+            return false;
+        }
+
+        if(find(root, k-(curr->val), curr)){
+            return true;
+        }
+
+        return  run(root, curr->left, k) ||  run(root, curr->right, k);
+    }
+    bool find(TreeNode* root, int val, TreeNode* curr){
+        if(root == NULL){
+            return false; 
+        }
+
+        if(val > root->val){
+            return find(root->right, val, curr);
+        }
+        else if(val < root->val){
+            return find(root->left, val, curr);
+        }
+        return val == root->val && root != curr;
+    }
+};
