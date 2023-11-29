@@ -1,0 +1,35 @@
+Given the root of a binary search tree (BST) with duplicates, return all the mode(s) (i.e., the most frequently occurred element) in it.
+
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        inOrder(root);
+
+        vector<int> modes;
+        int maxFreq = 0;
+
+        for (auto& entry : freqMap) {
+            if (entry.second == maxFreq) {
+                modes.push_back(entry.first);
+            } else if (entry.second > maxFreq) {
+                maxFreq = entry.second;
+                modes = {entry.first};
+            }
+        }
+
+        return modes;
+    }
+
+private:
+    std::unordered_map<int, int> freqMap;
+
+    void inOrder(TreeNode* root) {
+        if (root == nullptr) {
+            return;
+        }
+
+        inOrder(root->left);
+        freqMap[root->val]++;
+        inOrder(root->right);
+    }
+};
