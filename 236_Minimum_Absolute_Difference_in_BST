@@ -1,0 +1,24 @@
+Given the root of a Binary Search Tree (BST), return the minimum absolute difference between the values of any two different nodes in the tree.
+
+class Solution {
+public:
+    int mini = INT_MAX;
+    int prev = -1;
+
+    int getMinimumDifference(TreeNode* root) {
+        if (root == nullptr) {
+            return mini;
+        }
+
+        getMinimumDifference(root->left);
+
+        if (prev != -1) {
+            mini = std::min(mini, root->val - prev);
+        }
+        prev = root->val;
+
+        getMinimumDifference(root->right);
+
+        return mini;
+    }
+};
