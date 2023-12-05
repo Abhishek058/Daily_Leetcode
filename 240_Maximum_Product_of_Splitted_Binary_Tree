@@ -1,0 +1,19 @@
+Given the root of a binary tree, split the binary tree into two subtrees by removing one edge such that the product of the sums of the subtrees is maximized.
+
+Return the maximum product of the sums of the two subtrees. Since the answer may be too large, return it modulo 109 + 7.
+
+class Solution {
+    long ans = 0, totalSum = 0;
+    public int maxProduct(TreeNode root) {
+        totalSum = dfs(root);
+        dfs(root);
+        return (int) (ans % (1e9+7));
+    }
+    
+    int dfs(TreeNode root) {
+        if (root == null) return 0;
+        int currSum = dfs(root.left) + dfs(root.right) + root.val;
+        ans = Math.max(ans, (totalSum - currSum) * currSum);
+        return currSum;
+    }
+}
