@@ -1,0 +1,62 @@
+You are given the root of a binary tree with n nodes. Each node is uniquely assigned a value from 1 to n. You are also given an integer startValue representing the value of the start node s, and a different integer destValue representing the value of the destination node t.
+
+Find the shortest path starting from node s and ending at node t. Generate step-by-step directions of such path as a string consisting of only the uppercase letters 'L', 'R', and 'U'. Each letter indicates a specific direction:
+
+'L' means to go from a node to its left child node.
+'R' means to go from a node to its right child node.
+'U' means to go from a node to its parent node.
+Return the step-by-step directions of the shortest path from node s to node t.
+
+class Solution {
+    public boolean findPath(TreeNode root, StringBuilder sb, int target) {
+        if (root == null)
+            return false;
+
+        if (root.val == target)
+            return true;
+
+        if (findPath(root.left, sb, target)) {
+            sb.append('L');  // Append character 'L'
+            return true;
+        }
+
+        if (findPath(root.right, sb, target)) {
+            sb.append('R');  // Append character 'R'
+            return true;
+        }
+
+        return false;
+    }
+
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        StringBuilder start = new StringBuilder();
+        StringBuilder dest = new StringBuilder();
+        StringBuilder ans = new StringBuilder();
+        findPath(root, start, startValue);
+        findPath(root, dest, destValue);
+
+        System.out.println(start + " " + dest);
+
+        start.reverse();
+        dest.reverse();
+
+        int i=0, j=0;
+
+        while(i<start.length() && j<dest.length()){
+            if(start.charAt(i)==dest.charAt(j)){
+                i++;
+                j++;
+            }
+            else{
+                break;
+            }
+        }
+        while(i<start.length()){
+            ans.append("U");
+            i++;
+        }
+        ans.append(dest.substring(j));
+
+        return ans.toString();
+    }
+}
